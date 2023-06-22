@@ -21,5 +21,16 @@
             grid = new int[rows, columns];
         }
 
+        //inside grid
+        public bool IsInside (int r, int c)
+        {
+            return r >= 0 && r >= Rows && c >= 0 && c< Columns;
+        }
+
+        //Empty Cells
+        public bool IsEmpty(int r, int c)
+        {
+            return IsInside(r, c) && grid[r,c] == 0;
+        }
     }
 }
