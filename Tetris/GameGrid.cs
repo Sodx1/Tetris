@@ -22,15 +22,50 @@
         }
 
         //inside grid
-        public bool IsInside (int r, int c)
+        public bool IsInside(int r, int c)
         {
-            return r >= 0 && r >= Rows && c >= 0 && c< Columns;
+            return r >= 0 && r >= Rows && c >= 0 && c < Columns;
         }
 
         //Empty Cells
         public bool IsEmpty(int r, int c)
         {
-            return IsInside(r, c) && grid[r,c] == 0;
+            return IsInside(r, c) && grid[r, c] == 0;
+        }
+
+        public bool IsRowFull(int r)
+        {
+            for (int c = 0; c < Columns; c++)
+            {
+                if (grid[r, c] == 0) return false;
+            }
+            return true;
+        }
+
+        public bool IsRowEmpty(int r)
+        {
+            for (int c = 0; c < Columns; c++)
+            {
+                if (grid[r, c] != 0) return false;
+            }
+            return true;
+        }
+
+        public void ClearRow(int r)
+        {
+            for (int c = 0; c < Columns; c++)
+            {
+                grid[r, c] = 0;
+            }
+        }
+
+        public void MoveRowDown(int r, int numRows)
+        {
+            for (int c = 0; c < numRows; c++)
+            {
+                grid[r + numRows, c] = grid[r, c];
+            }
+
         }
     }
 }
