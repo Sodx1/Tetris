@@ -1,6 +1,6 @@
 ﻿namespace Tetris
 {
-    //Grid Tetris
+    //Game Grid Игровое поле
     public class GameGrid
     {
         private readonly int[,] grid;
@@ -13,7 +13,6 @@
             set => grid[r, c] = value;
         }
 
-        //Constructor Game Grid
         public GameGrid(int rows, int columns)
         {
             Rows = rows;
@@ -21,13 +20,11 @@
             grid = new int[rows, columns];
         }
 
-        //inside grid
         public bool IsInside(int r, int c)
         {
-            return r >= 0 && r >= Rows && c >= 0 && c < Columns;
+            return r >= 0 && r < Rows && c >= 0 && c < Columns;
         }
 
-        //Empty Cells
         public bool IsEmpty(int r, int c)
         {
             return IsInside(r, c) && grid[r, c] == 0;
@@ -37,8 +34,12 @@
         {
             for (int c = 0; c < Columns; c++)
             {
-                if (grid[r, c] == 0) return false;
+                if (grid[r, c] == 0)
+                {
+                    return false;
+                }
             }
+
             return true;
         }
 
@@ -46,12 +47,16 @@
         {
             for (int c = 0; c < Columns; c++)
             {
-                if (grid[r, c] != 0) return false;
+                if (grid[r, c] != 0)
+                {
+                    return false;
+                }
             }
+
             return true;
         }
 
-        public void ClearRow(int r)
+        private void ClearRow(int r)
         {
             for (int c = 0; c < Columns; c++)
             {
@@ -59,33 +64,33 @@
             }
         }
 
-        public void MoveRowDown(int r, int numRows)
+        private void MoveRowDown(int r, int numRows)
         {
-            for (int c = 0; c < numRows; c++)
+            for (int c = 0; c < Columns; c++)
             {
                 grid[r + numRows, c] = grid[r, c];
                 grid[r, c] = 0;
             }
-
         }
 
         public int ClearFullRows()
         {
-            int cleard = 0;
+            int cleared = 0;
 
-            for(int r = Rows-1; r>=0; r--)
+            for (int r = Rows - 1; r >= 0; r--)
             {
                 if (IsRowFull(r))
                 {
                     ClearRow(r);
-                    cleard++;
+                    cleared++;
                 }
-                else if (cleard > 0)
+                else if (cleared > 0)
                 {
-                    MoveRowDown(r, cleard);
+                    MoveRowDown(r, cleared);
                 }
             }
-            return cleard;
+
+            return cleared;
         }
     }
 }
